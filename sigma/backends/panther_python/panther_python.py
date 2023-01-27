@@ -8,7 +8,7 @@ import sigma
 import re
 from typing import ClassVar, Dict, Tuple, Pattern, List, Any
 
-class pantherBackend(TextQueryBackend):
+class PantherBackend(TextQueryBackend):
     """panther_python backend."""
     # TODO: change the token definitions according to the syntax. Delete these not supported by your backend.
     # See the pySigma documentation for further infromation:
