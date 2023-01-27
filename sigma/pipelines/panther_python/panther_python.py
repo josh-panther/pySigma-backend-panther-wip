@@ -26,8 +26,8 @@ class AddFieldnamePrefixAndSuffixTransformation(FieldMappingTransformationBase):
 
 
 panther_transformation = AddFieldnamePrefixAndSuffixTransformation.from_dict({
-        "prefix": "event.get('",
-        "suffix": "')",
+        "prefix": "event.get(\"",
+        "suffix": "\")",
     })
 
 no_transformation = AddFieldnamePrefixAndSuffixTransformation.from_dict({
