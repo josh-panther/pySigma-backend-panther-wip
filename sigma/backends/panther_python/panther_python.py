@@ -19,11 +19,7 @@ class PantherBackend(TextQueryBackend):
     name : ClassVar[str] = "panther_python backend"
     formats : Dict[str, str] = {
         "default": "Plain panther_python queries",
-        
-        
         "panther_rule": "'panther_rule' output format",
-        
-        
     }
     requires_pipeline : bool = False            # TODO: does the backend requires that a processing pipeline is provided? This information can be used by user interface programs like Sigma CLI to warn users about inappropriate usage of the backend.
 
@@ -32,10 +28,10 @@ class PantherBackend(TextQueryBackend):
 
     # Generated query tokens
     token_separator : str = " "     # separator inserted between all boolean operators
-    or_token : ClassVar[str] = "OR"
-    and_token : ClassVar[str] = " "
-    not_token : ClassVar[str] = "NOT"
-    eq_token : ClassVar[str] = "="  # Token inserted between field and value (without separator)
+    or_token : ClassVar[str] = "or"
+    and_token : ClassVar[str] = "and"
+    not_token : ClassVar[str] = "not"
+    eq_token : ClassVar[str] = "=="  # Token inserted between field and value (without separator)
 
     # String output
     ## Fields
@@ -51,7 +47,7 @@ class PantherBackend(TextQueryBackend):
 
     ## Values
     str_quote       : ClassVar[str] = '"'     # string quoting character (added as escaping character)
-    escape_char     : ClassVar[str] = "\\"    # Escaping character for special characrers inside string
+    escape_char     : ClassVar[str] = "\\"    # Escaping character for special characters inside string
     wildcard_multi  : ClassVar[str] = "*"     # Character used as multi-character wildcard
     wildcard_single : ClassVar[str] = "*"     # Character used as single-character wildcard
     add_escaped     : ClassVar[str] = "\\"    # Characters quoted in addition to wildcards and string quote
