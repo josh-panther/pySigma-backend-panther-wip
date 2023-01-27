@@ -26,13 +26,13 @@ class AddFieldnamePrefixAndSuffixTransformation(FieldMappingTransformationBase):
 
 
 panther_transformation = AddFieldnamePrefixAndSuffixTransformation.from_dict({
-        "prefix": "event.get(\'",
-        "suffix": "\')",
+        "prefix": "event.get('",
+        "suffix": "')",
     })
 
 no_transformation = AddFieldnamePrefixAndSuffixTransformation.from_dict({
-        "prefix": "a",
-        "suffix": "'",
+        "prefix": "",
+        "suffix": "",
     })
 
 @dataclass
@@ -65,8 +65,8 @@ def panther_pipeline():
                 #     regex="^(.*)$",
                 #     replacement="event.get('\\1')",
                 # ),
-                # transformation=panther_transformation,
-                transformation=no_transformation,
+                transformation=panther_transformation,
+                #transformation=no_transformation,
                 field_name_conditions=[
                     AlwaysMatchFieldCondition(),
                 ]
