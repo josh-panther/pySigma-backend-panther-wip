@@ -148,9 +148,9 @@ def test_panther_python_field_name_with_whitespace(panther_python_backend : Pant
 
 
 
-def test_panther_python_panther_rule_output(panther_python_backend : PantherBackend):
-    """Test for output format panther_rule."""
-    # TODO: implement a test for the output format
-    pass
+# def test_panther_python_panther_rule_output(panther_python_backend : PantherBackend):
+#     """Test for output format panther_rule."""
+#     # TODO: implement a test for the output format
+#     assert False
 
 
