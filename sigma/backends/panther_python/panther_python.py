@@ -71,8 +71,8 @@ class PantherBackend(TextQueryBackend):
 
     # String matching operators. if none is appropriate eq_token is used.
     startswith_expression: ClassVar[str] = '{field}.startswith({value})'
-    endswith_expression: ClassVar[str] = "endswith"
-    contains_expression: ClassVar[str] = "contains"
+    endswith_expression: ClassVar[str] = '{field}.endswith({value})'
+    contains_expression: ClassVar[str] = "{value} in {field}"
     wildcard_match_expression: ClassVar[str] = "match"  # Special expression if wildcards can't be matched with the eq_token operator
 
     # Regular expressions
