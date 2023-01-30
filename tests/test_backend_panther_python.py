@@ -58,7 +58,7 @@ def test_panther_python_and_or_expression(panther_python_backend : PantherBacken
                         - valueB2
                 condition: sel
         """)
-    ) == ['event.get("fieldA") in ["valueA1", "valueA2"] and event.get("fieldB") in ["valueB1", "valueB2"]']
+    ) == ['(event.get("fieldA") in ["valueA1", "valueA2"]) and (event.get("fieldB") in ["valueB1", "valueB2"])']
 
 def test_panther_python_or_and_expression(panther_python_backend : PantherBackend):
     assert panther_python_backend.convert(

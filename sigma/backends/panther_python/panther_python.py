@@ -99,9 +99,11 @@ class PantherBackend(TextQueryBackend):
 
     # Field value in list, e.g. "field in (value list)" or "field containsall (value list)"
     convert_or_as_in: ClassVar[bool] = True  # Convert OR as in-expression
-    convert_and_as_in: ClassVar[bool] = True  # Convert AND as in-expression
+    convert_and_as_in: ClassVar[bool] = False  # Convert AND as in-expression
     in_expressions_allow_wildcards: ClassVar[bool] = True  # Values in list can contain wildcards. If set to False (default) only plain values are converted into in-expressions.
-    field_in_list_expression: ClassVar[str] = "{field} {op} ({list})"  # Expression for field in list of values as format string with placeholders {field}, {op} and {list}
+
+    # Expression for field in list of values as format string with placeholders {field}, {op} and {list}
+    field_in_list_expression: ClassVar[str] = "{field} {op} [{list}]"
     or_in_operator: ClassVar[str] = "in"  # Operator used to convert OR into in-expressions. Must be set if convert_or_as_in is set
     and_in_operator: ClassVar[str] = "contains-all"  # Operator used to convert AND into in-expressions. Must be set if convert_and_as_in is set
     list_separator: ClassVar[str] = ", "  # List element separator
