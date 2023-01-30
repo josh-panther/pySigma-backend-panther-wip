@@ -32,25 +32,32 @@ class PantherBackend(TextQueryBackend):
     or_token: ClassVar[str] = "or"
     and_token: ClassVar[str] = "and"
     not_token: ClassVar[str] = "not"
-    eq_token: ClassVar[str] = "=="  # Token inserted between field and value (without separator)
+    eq_token: ClassVar[str] = " == "  # Token inserted between field and value (without separator)
 
     # String output
     ## Fields
     ### Quoting
-    field_quote: ClassVar[
-        str] = "'"  # Character used to quote field characters if field_quote_pattern matches (or not, depending on field_quote_pattern_negation). No field name quoting is done if not set.
+
+    # Character used to quote field characters if field_quote_pattern matches (or not, depending on field_quote_pattern_negation). No field name quoting is done if not set.
+    # before: ['\'event.get(\'fieldA\')\'=="valueA" and \'event.get(\'fieldB\')\'=="valueB"']
+    # after:  ['event.get(\'fieldA\')=="valueA" and event.get(\'fieldB\')=="valueB"']
+    # field_quote: ClassVar[str] = "'"
+    field_quote: ClassVar[str] = ""
     field_quote_pattern: ClassVar[Pattern] = re.compile(
         "^\\w+$")  # Quote field names if this pattern (doesn't) matches, depending on field_quote_pattern_negation. Field name is always quoted if pattern is not set.
     field_quote_pattern_negation: ClassVar[bool] = True  # Negate field_quote_pattern result. Field name is quoted if pattern doesn't matches if set to True (default).
 
     ### Escaping
-    field_escape: ClassVar[str] = "\\"  # Character to escape particular parts defined in field_escape_pattern.
+    # Character to escape particular parts defined in field_escape_pattern.
+    # field_escape: ClassVar[str] = "\\"
+    field_escape: ClassVar[str] = ""
     field_escape_quote: ClassVar[bool] = True  # Escape quote string defined in field_quote
     field_escape_pattern: ClassVar[Pattern] = re.compile("\\s")  # All matches of this pattern are prepended with the string contained in field_escape.
 
     ## Values
     str_quote: ClassVar[str] = '"'  # string quoting character (added as escaping character)
-    escape_char: ClassVar[str] = "\\"  # Escaping character for special characters inside string
+    # Escaping character for special characters inside string
+    escape_char: ClassVar[str] = "\\"
     wildcard_multi: ClassVar[str] = "*"  # Character used as multi-character wildcard
     wildcard_single: ClassVar[str] = "*"  # Character used as single-character wildcard
     add_escaped: ClassVar[str] = "\\"  # Characters quoted in addition to wildcards and string quote
@@ -129,3 +136,7 @@ class PantherBackend(TextQueryBackend):
         # - list of str: output each item as is separated by two newlines.
         # - list of dict: serialize each item as JSON and output all separated by newlines.
         return "\n".join(queries)
+
+    def escape_and_quote_field(self, field_name : str) -> str:
+        field_name = f'event.get("{field_name}")'
+        return super().escape_and_quote_field(field_name)
