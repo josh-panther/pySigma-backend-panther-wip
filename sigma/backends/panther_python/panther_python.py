@@ -13,9 +13,6 @@ class PantherBackend(TextQueryBackend):
     # TODO: change the token definitions according to the syntax. Delete these not supported by your backend.
     # See the pySigma documentation for further infromation:
     # https://sigmahq-pysigma.readthedocs.io/en/latest/Backends.html
-
-    # Operator precedence: tuple of Condition{AND,OR,NOT} in order of precedence.
-    # The backend generates grouping if required
     name: ClassVar[str] = "panther_python backend"
     formats: Dict[str, str] = {
         "default": "panther_python queries"
@@ -24,8 +21,13 @@ class PantherBackend(TextQueryBackend):
     # TODO: does the backend requires that a processing pipeline is provided? This information can be used by user interface programs like Sigma CLI to warn users about inappropriate usage of the backend.
     requires_pipeline: bool = False
 
+
+    # Operator precedence: tuple of Condition{AND,OR,NOT} in order of precedence.
+    # The backend generates grouping if required
     precedence: ClassVar[Tuple[ConditionItem, ConditionItem, ConditionItem]] = (ConditionNOT, ConditionAND, ConditionOR)
     group_expression: ClassVar[str] = "({expr})"  # Expression for precedence override grouping as format string with {expr} placeholder
+    # Reflect parse tree by putting parenthesis around all expressions - use this for target systems without strict precedence rules.
+    parenthesize : bool = True
 
     # Generated query tokens
     token_separator: str = " "  # separator inserted between all boolean operators
