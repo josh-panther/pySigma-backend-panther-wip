@@ -95,7 +95,7 @@ def test_panther_python_in_expression(panther_python_backend : PantherBackend):
                         - valueC*
                 condition: sel
         """)
-    ) == ['import re\nevent.get("fieldA") == "valueA" or event.get("fieldA") == "valueB" or re.compile(r"valueC.*").search(event.get("fieldA"))']
+    ) == ['event.get("fieldA") == "valueA" or event.get("fieldA") == "valueB" or re.compile(r"valueC.*").search(event.get("fieldA"))']
 
 def test_panther_python_regex_query(panther_python_backend : PantherBackend):
     assert panther_python_backend.convert(
@@ -111,7 +111,7 @@ def test_panther_python_regex_query(panther_python_backend : PantherBackend):
                     fieldB: foo
                 condition: sel
         """)
-    ) == ['import re\nre.compile(r"foo.*bar").search(event.get("fieldA")) and event.get("fieldB") == "valueB2"']
+    ) == ['re.compile(r"foo.*bar").search(event.get("fieldA")) and event.get("fieldB") == "valueB2"']
 
 def test_panther_python_cidr_query(panther_python_backend : PantherBackend):
     assert panther_python_backend.convert(
@@ -126,7 +126,7 @@ def test_panther_python_cidr_query(panther_python_backend : PantherBackend):
                     field|cidr: 192.168.0.0/16
                 condition: sel
         """)
-    ) == ['from ipaddress import ip_address, ip_network\nipaddress.ip_address(event.get("field")) in ipaddress.ip_network("192.168.0.0/16")']
+    ) == ['ipaddress.ip_address(event.get("field")) in ipaddress.ip_network("192.168.0.0/16")']
 
 def test_panther_python_field_name_with_whitespace(panther_python_backend : PantherBackend):
     assert panther_python_backend.convert(
