@@ -50,25 +50,25 @@ class AlwaysMatchFieldCondition(FieldNameProcessingCondition):
 
 # See https://sigmahq-pysigma.readthedocs.io/en/latest/Processing_Pipelines.html for further documentation.
 
-def panther_pipeline():
-    return ProcessingPipeline(
-        name="Generic Log Sources to Panther Transformation",
-        # Set of identifiers of backends (from the backends mapping) that are allowed to use this processing pipeline.
-        #   This can be used by frontends like Sigma CLI to warn the user about inappropriate usage.
-        # allowed_backends=frozenset(),
-        # The priority defines the order pipelines are applied. See documentation for common values.
-        # priority=20,
-        items=[
-            ProcessingItem(
-                identifier="panther_event_get",
-                # transformation=ReplaceStringTransformation(
-                #     regex="^(.*)$",
-                #     replacement="event.get('\\1')",
-                # ),
-                transformation=panther_transformation,
-                #transformation=no_transformation,
-                field_name_conditions=[
-                    AlwaysMatchFieldCondition(),
-                ]
-            )
-        ])
+# def panther_pipeline():
+#     return ProcessingPipeline(
+#         name="Generic Log Sources to Panther Transformation",
+#         # Set of identifiers of backends (from the backends mapping) that are allowed to use this processing pipeline.
+#         #   This can be used by frontends like Sigma CLI to warn the user about inappropriate usage.
+#         # allowed_backends=frozenset(),
+#         # The priority defines the order pipelines are applied. See documentation for common values.
+#         # priority=20,
+#         items=[
+#             ProcessingItem(
+#                 identifier="panther_event_get",
+#                 # transformation=ReplaceStringTransformation(
+#                 #     regex="^(.*)$",
+#                 #     replacement="event.get('\\1')",
+#                 # ),
+#                 transformation=panther_transformation,
+#                 #transformation=no_transformation,
+#                 field_name_conditions=[
+#                     AlwaysMatchFieldCondition(),
+#                 ]
+#             )
+#         ])
