@@ -76,16 +76,21 @@ class PantherBackend(TextQueryBackend):
     wildcard_match_expression: ClassVar[str] = "match"  # Special expression if wildcards can't be matched with the eq_token operator
 
     # Regular expressions
-    re_expression: ClassVar[str] = "{field}=~{regex}"  # Regular expression query as format string with placeholders {field} and {regex}
+    # Regular expression query as format string with placeholders {field} and {regex}
+    # re_expression: ClassVar[str] = "{field}=~{regex}"
+    re_expression: ClassVar[str] = 're.compile(r"{regex}").search(event.get("{field}"))'
+
     re_escape_char: ClassVar[str] = "\\"  # Character used for escaping in regular expressions
     re_escape: ClassVar[Tuple[str]] = ()  # List of strings that are escaped
     re_escape_escape_char: bool = True  # If True, the escape character is also escaped
 
     # cidr expressions
     cidr_wildcard: ClassVar[str] = "*"  # Character used as single wildcard
+
     # CIDR expression query as format string with placeholders {field} = {value}
     # cidr_expression: ClassVar[str] = "cidrmatch({field}, {value})"
     cidr_expression: ClassVar[str] = 'ipaddress.ip_address(event.get("field")) in ipaddress.ip_network("{value}")'
+
     cidr_in_list_expression: ClassVar[str] = "{field} in ({value})"  # CIDR expression query as format string with placeholders {field} = in({list})
 
     # Numeric comparison operators
@@ -109,7 +114,7 @@ class PantherBackend(TextQueryBackend):
     # Expression for field in list of values as format string with placeholders {field}, {op} and {list}
     field_in_list_expression: ClassVar[str] = "{field} {op} [{list}]"
     or_in_operator: ClassVar[str] = "in"  # Operator used to convert OR into in-expressions. Must be set if convert_or_as_in is set
-    and_in_operator: ClassVar[str] = "contains-all"  # Operator used to convert AND into in-expressions. Must be set if convert_and_as_in is set
+    # and_in_operator: ClassVar[str] = "contains-all"  # Operator used to convert AND into in-expressions. Must be set if convert_and_as_in is set
     list_separator: ClassVar[str] = ", "  # List element separator
 
     # Value not bound to a field
