@@ -177,10 +177,10 @@ def test_panther_python_cidr_query(panther_python_backend : PantherBackend):
                 product: test_product
             detection:
                 sel:
-                    field|cidr: 192.168.0.0/16
+                    fieldA|cidr: 192.168.0.0/16
                 condition: sel
         """)
-    ) == ['ipaddress.ip_address(event.get("field")) in ipaddress.ip_network("192.168.0.0/16")']
+    ) == ['ipaddress.ip_address(event.get("fieldA")) in ipaddress.ip_network("192.168.0.0/16")']
 
 def test_panther_python_field_name_with_whitespace(panther_python_backend : PantherBackend):
     assert panther_python_backend.convert(
